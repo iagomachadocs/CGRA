@@ -21,9 +21,7 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.diamond = new MyDiamond(this);
-
-        this.parallelogram = new MyParallelogram(this);
+        this.tangram = new MyTangram(this);
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -71,23 +69,8 @@ class MyScene extends CGFscene {
         this.multMatrix(sca);
 
         // ---- BEGIN Primitive drawing section
-        this.pushMatrix();
-        var trans = [1.0, 0.0, 0.0, 0.0,
-            0.0, 1.0, 0.0, 0.0,
-            0.0, 0.0, 1.0, 0.0,
-            -1.0, 0.0, 0.0, 1.0];
-        this.multMatrix(trans);
-        if(this.displayDiamond)
-            this.diamond.display();
-        this.popMatrix();
         
-        this.pushMatrix();
-        this.rotate(Math.PI, 1, 0, 0);
-        this.translate(-1, -1, 0);
-        if(this.displayParallelogram)
-            this.parallelogram.display();
-        this.popMatrix();
-        
+        this.tangram.display();
         
 
         // ---- END Primitive drawing section
