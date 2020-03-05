@@ -26,7 +26,7 @@ class MyScene extends CGFscene {
         this.parallelogram = new MyParallelogram(this);
         this.triangleSmall = new MyTriangleSmall(this);
         this.triangleBig = new MyTriangleBig(this);
-        this.cube = new MyCube(this);
+        this.cube = new MyQuad(this);
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -73,59 +73,7 @@ class MyScene extends CGFscene {
 
         this.multMatrix(sca);
 
-        this.pushMatrix();
-        this.translate(1,1,0);
-        this.rotate(180*Math.PI/180,1,0,0);
-        this.triangle.display();
-        this.rotate(180*Math.PI/180,0,0,1);
-        this.triangle.display();
-        this.popMatrix();
-
-        this.pushMatrix();
-        this.translate(1,1,2);
-        this.rotate(180*Math.PI/180,1,0,0);
-        this.rotate(180*Math.PI/180,0,1,0);
-        this.triangle.display();
-        this.rotate(180*Math.PI/180,0,0,1);
-        this.triangle.display();
-        this.popMatrix();
-
-
-        this.pushMatrix();
-        this.translate(2,1,1);
-        this.rotate(90*Math.PI/180,0,1,0);
-        this.rotate(180*Math.PI/180,0,0,1);
-        this.triangle.display();
-        this.rotate(180*Math.PI/180,0,0,1);
-        this.triangle.display();
-        this.popMatrix();
-
-        this.pushMatrix();
-        this.translate(0,1,1);
-        this.rotate(90*Math.PI/180,0,1,0);
-        this.rotate(180*Math.PI/180,1,0,0);
-        this.triangle.display();
-        this.rotate(180*Math.PI/180,0,0,1);
-        this.triangle.display();
-        this.popMatrix();
-
-
-        this.pushMatrix();
-        this.translate(1,2,1);
-        this.rotate(90*Math.PI/180,1,0,0);
-        this.rotate(180*Math.PI/180,0,1,0);
-        this.triangle.display();
-        this.rotate(180*Math.PI/180,0,0,1);
-        this.triangle.display();
-        this.popMatrix();
-
-        this.pushMatrix();
-        this.translate(1,0,1);
-        this.rotate(90*Math.PI/180,1,0,0);
-        this.triangle.display();
-        this.rotate(180*Math.PI/180,0,0,1);
-        this.triangle.display();
-        this.popMatrix();
+        this.cube.display();
 
         // ---- BEGIN Primitive drawing section
 
