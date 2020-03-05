@@ -31,13 +31,12 @@ class MyTangram extends CGFobject {
 
         this.scene.pushMatrix();
         this.scene.translate(0,-2,0);
-        this.scene.rotate(180*Math.PI/180,0,0,1);
+        this.scene.rotate(Math.PI,0,0,1);
         this.triangleBig.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.translate(0,-2,0);
-        this.scene.rotate(Math.PI/180,0,0,1);
         this.triangleBig.display();
         this.scene.popMatrix();
 
