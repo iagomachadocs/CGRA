@@ -35,9 +35,7 @@ class MyUnitCube extends CGFobject {
 			1, 2, 6,	// Trás
 			1, 6, 5,
 		];
-		// for(var i = 0; i < 6; i++){
-		// 	this.indices.push(i, i+1, i+4, i+1, i+4+1, i+4);
-		// }
+
 
 		//The defined indices (and corresponding vertices)
 		//will be read in groups of three to draw triangles
