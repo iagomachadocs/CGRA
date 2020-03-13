@@ -1,9 +1,9 @@
 /**
- * MyQuad
+ * MyUnitCube
  * @constructor
  * @param scene - Reference to MyScene object
  */
-class MyQuad extends CGFobject {
+class MyUnitCube extends CGFobject {
 	constructor(scene) {
 		super(scene);
 		this.initBuffers();
@@ -40,5 +40,12 @@ class MyQuad extends CGFobject {
 
 		this.initGLBuffers();
 	}
+	updateBuffers(complexity){
+        this.slices = 3 + Math.round(9 * complexity); //complexity varies 0-1, so slices varies 3-12
+
+        // reinitialize buffers
+        this.initBuffers();
+        this.initNormalVizBuffers();
+    }
 }
 
