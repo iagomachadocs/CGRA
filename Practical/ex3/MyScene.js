@@ -41,7 +41,7 @@ class MyScene extends CGFscene {
         this.displayNormals = false;
         this.objectComplexity = 0.5;
         this.scaleFactor = 2.0;
-        this.globalAmbientLight = 0.3;
+        this.globalAmbientLight = 0.01;
     }
     initLights() {
         this.setGlobalAmbientLight(0.3, 0.3, 0.3, 1.0);

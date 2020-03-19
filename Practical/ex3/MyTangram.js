@@ -34,7 +34,7 @@ class MyTangram extends CGFobject {
         this.scene.blue.setShininess(10);
 
         this.scene.pink = new CGFappearance(this.scene);
-        this.scene.pink.setAmbient(255, 155, 207, 1.0);
+        this.scene.pink.setAmbient(85, 31, 69, 1.0);
         this.scene.pink.setDiffuse(255, 155, 207, 1.0);
         this.scene.pink.setSpecular(255, 255, 255, 1.0);
         this.scene.pink.setShininess(10);
@@ -46,22 +46,23 @@ class MyTangram extends CGFobject {
         this.scene.yellow.setShininess(10);
 
         this.scene.purple = new CGFappearance(this.scene);
-        this.scene.purple.setAmbient(150, 80, 190, 1.0);
+        this.scene.purple.setAmbient(50, 27, 63, 1.0);
         this.scene.purple.setDiffuse(150, 80, 190, 1.0);
         this.scene.purple.setSpecular(255, 255, 255, 1.0);
         this.scene.purple.setShininess(10);
 
         this.scene.orange = new CGFappearance(this.scene);
-        this.scene.orange.setAmbient(255, 153, 0, 1.0);
-        this.scene.orange.setDiffuse(255, 153, 0, 1.0);
+        this.scene.orange.setAmbient(85, 40, 0, 1.0);
+        this.scene.orange.setDiffuse(255, 160, 0, 1.0);
         this.scene.orange.setSpecular(255, 255, 255, 1.0);
         this.scene.orange.setShininess(10);
 
     }
 	display() {
 
-        this.scene.green.apply();
         this.scene.pushMatrix();
+        this.scene.green.apply();
+
         var trans = [1.0, 0.0, 0.0, 0.0,
                      0.0, 1.0, 0.0, 0.0,
                      0.0, 0.0, 1.0, 0.0,
@@ -70,43 +71,44 @@ class MyTangram extends CGFobject {
         this.diamond.display();
         this.scene.popMatrix();
         
-        this.scene.yellow.apply();
         this.scene.pushMatrix();
+        this.scene.yellow.apply();
+
         this.scene.rotate(Math.PI, 1, 0, 0);
         this.scene.translate(-1, -1, 0);
         this.parallelogram.display();
         this.scene.popMatrix();
 
-        this.scene.orange.apply();
         this.scene.pushMatrix();
+        this.scene.orange.apply();
         this.scene.translate(0,-2,0);
         this.scene.rotate(Math.PI,0,0,1);
         this.triangleBig.display();
         this.scene.popMatrix();
 
-        this.scene.blue.apply();
         this.scene.pushMatrix();
+        this.scene.blue.apply();
         this.scene.translate(0,-2,0);
         this.triangleBig.display();
         this.scene.popMatrix();
 
-        this.scene.pink.apply();
         this.scene.pushMatrix();
+        this.scene.pink.apply();
         this.scene.translate(1,-1,0);
         this.scene.rotate(Math.PI,0,0,1);
         this.triangle.display();
         this.scene.popMatrix();
         
-        this.scene.purple.apply();
         this.scene.pushMatrix();
+        this.scene.purple.apply();
         this.scene.translate(-0.5, 1.5, 0);
         this.scene.scale(0.5, 0.5, 0.5);
         this.scene.rotate(Math.PI,0,0,1);
         this.triangle.display();
         this.scene.popMatrix();
 
-        this.scene.red.apply();
         this.scene.pushMatrix();
+        this.scene.red.apply();
         this.scene.translate(-2, -1, 0);
         this.scene.scale(0.71, 0.71, 0.71);
         this.scene.rotate(135*Math.PI/180,0,0,1);
