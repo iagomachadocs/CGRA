@@ -28,7 +28,7 @@ class MyInterface extends CGFinterface {
 
         this.gui.add(this.scene, 'selectedMaterial', this.scene.materialIDs).name('Selected Material');
 
-        this.gui.add(this.scene, 'globalAmbientLight', 0, 1).name('GlobalAmbientLight');
+        this.gui.add(this.scene, 'globalAmbientLight', 0, 1).name('Global Ambient Light');
 
         // a folder for grouping parameters for one of the lights
         var f0 = this.gui.addFolder('Light 0 ');
