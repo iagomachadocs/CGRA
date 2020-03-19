@@ -1,5 +1,5 @@
 /**
- * MyTriangle
+ * MyTangram
  * @constructor
  * @param scene - Reference to MyScene object
  */
@@ -56,13 +56,11 @@ class MyTangram extends CGFobject {
         this.scene.orange.setDiffuse(255, 153, 0, 1.0);
         this.scene.orange.setSpecular(255, 255, 255, 1.0);
         this.scene.orange.setShininess(10);
-
     }
 	display() {
 
         this.scene.pushMatrix();
-        this.scene.green.apply();
-
+        this.scene.customMaterial.apply();
         var trans = [1.0, 0.0, 0.0, 0.0,
                      0.0, 1.0, 0.0, 0.0,
                      0.0, 0.0, 1.0, 0.0,
@@ -73,7 +71,6 @@ class MyTangram extends CGFobject {
         
         this.scene.pushMatrix();
         this.scene.yellow.apply();
-
         this.scene.rotate(Math.PI, 1, 0, 0);
         this.scene.translate(-1, -1, 0);
         this.parallelogram.display();
