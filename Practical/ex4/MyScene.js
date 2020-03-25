@@ -25,6 +25,7 @@ class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.quad = new MyQuad(this);
         this.tangram = new MyTangram(this); 
+        this.unitCubeQuad = new MyUnitCubeQuad(this);
 
         //------ Applied Material
         this.quadMaterial = new CGFappearance(this);
@@ -45,6 +46,18 @@ class MyScene extends CGFscene {
         this.customMaterial = new CGFappearance(this);
         this.customMaterial.loadTexture('images/tangram.png');
         this.customMaterial.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.mineSide = new CGFappearance(this);
+        this.mineSide.loadTexture('images/mineSide.png');
+        this.mineSide.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.mineTop = new CGFappearance(this);
+        this.mineTop.loadTexture('images/mineTop.png');
+        this.mineTop.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.mineBottom = new CGFappearance(this);
+        this.mineBottom.loadTexture('images/mineBottom.png');
+        this.mineBottom.setTextureWrap('REPEAT', 'REPEAT');
 
         //------ Textures
         this.texture1 = new CGFtexture(this, 'images/board.jpg');
@@ -134,7 +147,9 @@ class MyScene extends CGFscene {
         // this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
 
         // this.quad.display();
-        this.tangram.display();
+        // this.tangram.display();
+        this.unitCubeQuad.display();
+        
 
         // ---- END Primitive drawing section
     }
