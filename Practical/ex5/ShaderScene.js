@@ -5,12 +5,12 @@ class ShaderScene extends CGFscene {
 		this.appearance = null;
 
 		// initial configuration of interface
-		this.selectedObject = 0;
+		this.selectedObject = 1;
 		this.wireframe = false;
-		this.selectedExampleShader = 0;
+		this.selectedExampleShader = 12;
 		this.showShaderCode = false;
 
-		this.scaleFactor = 16.0;
+		this.scaleFactor = 0.0;
 	}
 
 	init(application) {
@@ -53,13 +53,18 @@ class ShaderScene extends CGFscene {
 
 		this.texture = new CGFtexture(this, "textures/texture.jpg");
 		this.waterMap = new CGFtexture(this, "textures/waterMap.jpg");
+		this.waterTexture = new CGFtexture(this, "textures/waterTex.jpg");
+		this.terrainMap = new CGFtexture(this, "textures/terrainMap.jpg");
 		
 		// this.appearance.setTexture(this.texture);
 		this.appearance.setTexture(this.waterMap);
+		// this.appearance.setTextureWrap('REPEAT', 'REPEAT');'MIRRORED_REPEAT'
 		this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+		
+		this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
 
 		this.texture2 = new CGFtexture(this, "textures/FEUP.jpg");
-		this.waterTexture = new CGFtexture(this, "textures/waterTex.jpg");
 
 		// shaders initialization
 
@@ -74,6 +79,8 @@ class ShaderScene extends CGFscene {
 			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/sepia.frag"),
 			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/convolution.frag"),
 			new CGFshader(this.gl, "shaders/varying2.vert", "shaders/varying2.frag"),
+			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/sepiaGrayScale.frag"),
+			new CGFshader(this.gl, "shaders/varyinganim.vert", "shaders/varyinganim.frag"),
 			new CGFshader(this.gl, "shaders/water.vert", "shaders/water.frag")
 		];
 
@@ -82,8 +89,10 @@ class ShaderScene extends CGFscene {
 		this.testShaders[5].setUniformsValues({ uSampler2: 1 });
 		this.testShaders[6].setUniformsValues({ uSampler2: 1 });
 		this.testShaders[6].setUniformsValues({ timeFactor: 0 });
-		this.testShaders[10].setUniformsValues({ uSampler2: 1 });
-		this.testShaders[10].setUniformsValues({ timeFactor: 0 });
+		this.testShaders[11].setUniformsValues({ uSampler2: 1 });
+		this.testShaders[11].setUniformsValues({ timeFactor: 0 });
+		this.testShaders[12].setUniformsValues({ uSampler2: 1 });
+		this.testShaders[12].setUniformsValues({ timeFactor: 0 });
 
 
 		// Shaders interface variables
@@ -99,7 +108,9 @@ class ShaderScene extends CGFscene {
 			'Sepia': 7,
 			'Convolution': 8,
 			'Blue and Yellow': 9,
-			'Water': 10
+			'Sepia grayscale': 10,
+			'Animation': 11,
+			'Water': 12
 		};
 
 		// shader code panels references
@@ -180,10 +191,12 @@ class ShaderScene extends CGFscene {
 	// called periodically (as per setUpdatePeriod() in init())
 	update(t) {
 		// only shader 6 is using time factor
-		if (this.selectedExampleShader == 6)
-			this.testShaders[6].setUniformsValues({ timeFactor: t / 100 % 1000 });
-		if (this.selectedExampleShader == 10)
-			this.testShaders[10].setUniformsValues({ timeFactor: t / 100 % 1000 });
+		if (this.selectedExampleShader == 6){
+			this.testShaders[6].setUniformsValues({ timeFactor: t / 100 % 1000 });}
+		if (this.selectedExampleShader == 11){
+			this.testShaders[11].setUniformsValues({ timeFactor: t / 100 % 1000});}
+		if (this.selectedExampleShader == 12){
+			this.testShaders[12].setUniformsValues({ timeFactor: t / 100 % 1000 });}
 	}
 
 	// main display function
@@ -211,11 +224,14 @@ class ShaderScene extends CGFscene {
 
 		// activate selected shader
 		this.setActiveShader(this.testShaders[this.selectedExampleShader]);
-		this.pushMatrix();
+		// this.pushMatrix();
 
-		// bind additional texture to texture unit 1
+		// bind additional texture to texture un	it 1
 		// this.texture2.bind(1);
 		this.waterTexture.bind(1);
+		
+		this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
 
 		if (this.selectedObject==0) {
 			// teapot (scaled and rotated to conform to our axis)
