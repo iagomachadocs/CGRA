@@ -99,6 +99,7 @@ class MyScene extends CGFscene {
         this.displayAxis = true;
         this.scaleFactor = 1;
         this.selectedObject = 0;
+        this.speedFactor = 1;
 
         this.objects = [this.sphere, this.cylinder, this.vehicle];
 
@@ -142,13 +143,13 @@ class MyScene extends CGFscene {
         //   text += " W ";
         //   keysPressed = true;
 
-        this.vehicle.accelerate(0.01);
+        this.vehicle.accelerate(0.01 * this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyS")) {
         //   text += " S ";
         //   keysPressed = true;
 
-        this.vehicle.accelerate(-0.01);
+        this.vehicle.accelerate(-0.01 * this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyA")) {
             // text += " A ";
@@ -165,7 +166,7 @@ class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyR")) {
             // text += " R ";
             // keysPressed = true;
-    
+            
             this.vehicle.reset();
         }
         // if (keysPressed) {
@@ -206,6 +207,7 @@ class MyScene extends CGFscene {
 
         this.setDefaultAppearance();
 
+        this.pushMatrix();
         var sca = [this.scaleFactor, 0.0, 0.0, 0.0,
           0.0, this.scaleFactor, 0.0, 0.0,
           0.0, 0.0, this.scaleFactor, 0.0,
@@ -215,6 +217,7 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
         this.objects[this.selectedObject].display();
+        this.popMatrix();
     
         this.cubeMap.display();
 
