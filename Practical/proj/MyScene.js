@@ -91,7 +91,7 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.sphere = new MySphere(this, 16, 8);
-        this.cylinder = new MyCylinder(this, 10);
+        this.cylinder = new MyCylinder(this, 20);
         this.cubeMap = new MyUnitCubeMap(this);
         this.vehicle = new MyVehicle(this);
 
