@@ -9,7 +9,7 @@ class MyCylinder extends CGFobject {
     this.initBuffers();
   }
   initBuffers() {
-    this.latDivs = 2;
+    this.latDivs = 1;
     this.longDivs = this.slices;
 
     this.vertices = [];
@@ -25,7 +25,7 @@ class MyCylinder extends CGFobject {
 
     // build an all-around stack at a time, starting on "north pole" and proceeding "south"
     for (let latitude = 0; latitude <= this.latDivs; latitude++) {
-      var cosPhi = this.latDivs / 2 - latitude;
+      var cosPhi = this.latDivs - latitude;
 
       theta = 0;
       for (let longitude = 0; longitude <= this.longDivs; longitude++) {
