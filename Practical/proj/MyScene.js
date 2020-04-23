@@ -80,20 +80,24 @@ class MyScene extends CGFscene {
         this.hellBack.setTextureWrap('REPEAT', 'REPEAT');
 
         this.earth = new CGFappearance(this);
-        this.earth.loadTexture('images/earth.jpg');
-        this.earth.setTextureWrap('REPEAT', 'REPEAT');
+        this.earth.loadTexture("images/earth.jpg");
+        this.earth.setTextureWrap("REPEAT", "REPEAT");
+        this.earth.setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.earth.setAmbient(1.0, 1.0, 1.0, 1.0);
 
         // this.earthTexture = new CGFtexture(this, 'images/earth.jpg');
         // this.earth.setTexture(this.earthTexture);
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.incompleteSphere = new MySphere(this, 16, 8);
+        this.Sphere = new MySphere(this, 16, 8);
         this.cylinder = new MyCylinder(this, 10);
         this.cubeMap = new MyUnitCubeMap(this);
+        this.Vehicle = new MyVehicle(this);
 
         //Objects connected to MyInterface
         this.displayAxis = true;
+        this.scaleFactor = 1;
 
         this.materialCubeMap1 = [this.heavenLeft, this.heavenRight, this.heavenFront, this.heavenBack, this.heavenTop, this.heavenBottom];
         this.materialCubeMap2 = [this.hellLeft, this.hellRight, this.hellFront, this.hellBack, this.hellTop, this.hellBottom]; 
@@ -119,8 +123,48 @@ class MyScene extends CGFscene {
         this.setShininess(10.0);
     }
     // called periodically (as per setUpdatePeriod() in init())
-    update(t){
-        //To be done...
+    update(t) {
+        this.checkKeys();
+    }
+
+    
+    checkKeys() {
+        var text = "Keys pressed: ";
+        var keysPressed = false;
+        // Check for key codes e.g. in https://keycode.info/
+        if (this.gui.isKeyPressed("KeyW")) {
+        //   text += " W ";
+        //   keysPressed = true;
+
+        this.Vehicle.accelerate(0.01);
+        }
+        if (this.gui.isKeyPressed("KeyS")) {
+        //   text += " S ";
+        //   keysPressed = true;
+
+        this.Vehicle.accelerate(-0.01);
+        }
+        if (this.gui.isKeyPressed("KeyA")) {
+            // text += " A ";
+            // keysPressed = true;
+    
+            this.Vehicle.turn(0.01);
+        }
+        if (this.gui.isKeyPressed("KeyD")) {
+            // text += " D ";
+            // keysPressed = true;
+    
+            this.Vehicle.turn(-0.01);
+        }
+        if (this.gui.isKeyPressed("KeyR")) {
+            // text += " R ";
+            // keysPressed = true;
+    
+            this.Vehicle.reset();
+        }
+        // if (keysPressed) {
+        //   console.log(text);
+        // }
     }
 
     updateAppliedMaterial() {
@@ -143,6 +187,8 @@ class MyScene extends CGFscene {
         this.loadIdentity();
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
+
+        this.update();
         
         // Draw axis
         if (this.displayAxis)
@@ -150,13 +196,20 @@ class MyScene extends CGFscene {
 
         this.setDefaultAppearance();
 
+        var sca = [this.scaleFactor, 0.0, 0.0, 0.0,
+          0.0, this.scaleFactor, 0.0, 0.0,
+          0.0, 0.0, this.scaleFactor, 0.0,
+          0.0, 0.0, 0.0, 1.0];
+    
+        this.multMatrix(sca);
+
         // ---- BEGIN Primitive drawing section
         // this.earth.apply();
         // this.cylinder.display();
-        this.scale(50,50,50);
+        // this.Sphere.display();
+        this.Vehicle.display();
+    
         this.cubeMap.display();
-        //This sphere does not have defined texture coordinates
-        // this.incompleteSphere.display();
 
         // ---- END Primitive drawing section
     }

@@ -12,7 +12,8 @@ class MyUnitCubeMap extends CGFobject {
 
   display() {
     //front
-    
+    this.scene.scale(50,50,50);
+
     this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 
     this.scene.pushMatrix();
