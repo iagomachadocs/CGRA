@@ -90,14 +90,20 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.Sphere = new MySphere(this, 16, 8);
+        this.sphere = new MySphere(this, 16, 8);
         this.cylinder = new MyCylinder(this, 10);
         this.cubeMap = new MyUnitCubeMap(this);
-        this.Vehicle = new MyVehicle(this);
+        this.vehicle = new MyVehicle(this);
 
         //Objects connected to MyInterface
         this.displayAxis = true;
         this.scaleFactor = 1;
+        this.selectedObject = 0;
+
+        this.objects = [this.sphere, this.cylinder, this.vehicle];
+
+        // Labels and ID's for object selection on MyInterface
+        this.objectIDs = { 'Sphere': 0, 'Cylinder': 1, 'Vehicle': 2};
 
         this.materialCubeMap1 = [this.heavenLeft, this.heavenRight, this.heavenFront, this.heavenBack, this.heavenTop, this.heavenBottom];
         this.materialCubeMap2 = [this.hellLeft, this.hellRight, this.hellFront, this.hellBack, this.hellTop, this.hellBottom]; 
@@ -136,35 +142,39 @@ class MyScene extends CGFscene {
         //   text += " W ";
         //   keysPressed = true;
 
-        this.Vehicle.accelerate(0.01);
+        this.vehicle.accelerate(0.01);
         }
         if (this.gui.isKeyPressed("KeyS")) {
         //   text += " S ";
         //   keysPressed = true;
 
-        this.Vehicle.accelerate(-0.01);
+        this.vehicle.accelerate(-0.01);
         }
         if (this.gui.isKeyPressed("KeyA")) {
             // text += " A ";
             // keysPressed = true;
     
-            this.Vehicle.turn(0.01);
+            this.vehicle.turn(0.01);
         }
         if (this.gui.isKeyPressed("KeyD")) {
             // text += " D ";
             // keysPressed = true;
     
-            this.Vehicle.turn(-0.01);
+            this.vehicle.turn(-0.01);
         }
         if (this.gui.isKeyPressed("KeyR")) {
             // text += " R ";
             // keysPressed = true;
     
-            this.Vehicle.reset();
+            this.vehicle.reset();
         }
         // if (keysPressed) {
         //   console.log(text);
         // }
+    }
+
+    updateObject(){
+        this.objects[this.selectedObject];
     }
 
     updateAppliedMaterial() {
@@ -204,10 +214,7 @@ class MyScene extends CGFscene {
         this.multMatrix(sca);
 
         // ---- BEGIN Primitive drawing section
-        // this.earth.apply();
-        // this.cylinder.display();
-        // this.Sphere.display();
-        this.Vehicle.display();
+        this.objects[this.selectedObject].display();
     
         this.cubeMap.display();
 

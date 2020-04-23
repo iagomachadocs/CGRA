@@ -58,12 +58,6 @@ class MyVehicle extends CGFobject {
   }
 
   display() {
-    // this.scene.translate(
-    //   -this.position[0],
-    //   -this.position[1],
-    //   -this.position[2]
-    // );
-
     this.scene.pushMatrix();
     this.update();
     this.scene.translate(this.position[0], this.position[1], this.position[2]);
@@ -83,9 +77,6 @@ class MyVehicle extends CGFobject {
   update() {
     this.position[0] += Math.sin(this.yyOrientation) * this.velocity;
     this.position[2] += Math.cos(this.yyOrientation) * this.velocity;
-    // console.log(
-    //   this.position[0] + " " + this.position[1] + " " + this.position[2]
-    // );
   }
 
   turn(val) {
