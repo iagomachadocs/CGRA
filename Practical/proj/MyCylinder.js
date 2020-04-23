@@ -1,69 +1,76 @@
 /**
-* MyCylinder
-* @constructor
-*/
+ * MyCylinder
+ * @constructor
+ */
 class MyCylinder extends CGFobject {
-    constructor(scene, slices) {
-        super(scene);
-        this.slices = slices;
-        this.initBuffers();
-    }
-    initBuffers() {
-        this.vertices = [];
-        this.indices = [];
-        this.normals = [];
+  constructor(scene, slices) {
+    super(scene);
+    this.slices = slices;
+    this.initBuffers();
+  }
+  initBuffers() {
+    this.latDivs = 2;
+    this.longDivs = this.slices;
 
-        var ang = 0;
-        var alphaAng = 2*Math.PI/this.slices;
+    this.vertices = [];
+    this.indices = [];
+    this.normals = [];
+    this.texCoords = [];
 
-        for(var i = 0; i < this.slices; i++){
+    var phi = 0;
+    var theta = 0;
+    var phiInc = Math.PI / this.latDivs;
+    var thetaInc = (2 * Math.PI) / this.longDivs;
+    var latVertices = this.longDivs + 1;
 
-            var sa=Math.sin(ang);
-            var ca=Math.cos(ang);
+    // build an all-around stack at a time, starting on "north pole" and proceeding "south"
+    for (let latitude = 0; latitude <= this.latDivs; latitude++) {
+      var cosPhi = this.latDivs / 2 - latitude;
 
-            this.vertices.push(ca,0,-sa);
-            this.vertices.push(ca,1,-sa);
+      theta = 0;
+      for (let longitude = 0; longitude <= this.longDivs; longitude++) {
+        //--- Vertices coordinates
+        var x = -Math.cos(theta);
+        var y = cosPhi;
+        var z = -Math.sin(-theta);
+        this.vertices.push(x, y, z);
 
-            this.normals.push(ca,0,-sa);
-            this.normals.push(ca,1,-sa);
+        //--- Indices
+        if (latitude < this.latDivs && longitude < this.longDivs) {
+          var current = latitude * latVertices + longitude;
+          var next = current + latVertices;
+          // pushing two triangles using indices from this round (current, current+1)
+          // and the ones directly south (next, next+1)
+          // (i.e. one full round of slices ahead)
 
-            ang+=alphaAng;
-        }
-        // Vertex 0 repeated
-        var sa=Math.sin(0);
-        var ca=Math.cos(0);
-        this.vertices.push(ca,0,-sa);
-        this.vertices.push(ca,1,-sa);
-        this.normals.push(ca,0,-sa);
-        this.normals.push(ca,1,-sa);
-
-        
-        for(var i = 0; i < this.slices; i++){
-            this.indices.push(2*i, (2*i+2), (2*i+1));
-            this.indices.push((2*i+2), (2*i+3), (2*i+1));
-
-            this.indices.push((2*i+1), (2*i+2), 2*i);
-            this.indices.push((2*i+1), (2*i+3), (2*i+2));
-        }
-
-        this.textCoords = [];
-        var alpha = 1/this.slices;
-        for(var i = 0; i <= this.slices; i++){
-            this.textCoords.push(i*alpha, 1.0);
-            this.textCoords.push(i*alpha, 0.0);
+          this.indices.push(current + 1, current, next);
+          this.indices.push(current + 1, next, next + 1);
         }
 
-        this.primitiveType = this.scene.gl.TRIANGLES;
-        this.initGLBuffers();
-    }
-    
-    updateBuffers(complexity){
-        this.slices = 3 + Math.round(9 * complexity); //complexity varies 0-1, so slices varies 3-12
+        //--- Normals
+        this.normals.push(x, y, z);
+        theta += thetaInc;
 
-        // reinitialize buffers
-        this.initBuffers();
-        this.initNormalVizBuffers();
+        //--- Texture Coordinates
+        this.texCoords.push(longitude / this.longDivs, latitude / this.latDivs);
+      }
+      phi += phiInc;
     }
+
+    this.primitiveType = this.scene.gl.TRIANGLES;
+    this.initGLBuffers();
+  }
+
+  updateBuffers(complexity) {
+    this.slices = 3 + Math.round(9 * complexity); //complexity varies 0-1, so slices varies 3-12
+
+    // reinitialize buffers
+    this.initBuffers();
+    this.initNormalVizBuffers();
+  }
+
+  display() {
+    this.scene.earth.apply();
+    super.display();
+  }
 }
-
-
