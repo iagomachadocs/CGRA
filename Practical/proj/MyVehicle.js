@@ -154,7 +154,7 @@ class MyVehicle extends CGFobject {
       this.position[0] += this.xAng * 0.15;
       this.position[2] += this.xAng * 0.15;
 
-      this.yyOrientation = this.xAng + ;
+      this.yyOrientation = this.xAng;
 
       this.helixRotation += Math.PI / 8;
       this.helixRotation %= 2 * Math.PI;
