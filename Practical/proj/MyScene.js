@@ -98,7 +98,7 @@ class MyScene extends CGFscene {
         //Objects connected to MyInterface
         this.displayAxis = true;
         this.scaleFactor = 1;
-        this.selectedObject = 0;
+        this.selectedObject = 2;
         this.speedFactor = 1;
 
         this.objects = [this.sphere, this.cylinder, this.vehicle];
@@ -168,6 +168,12 @@ class MyScene extends CGFscene {
             // keysPressed = true;
             
             this.vehicle.reset();
+        }
+        if (this.gui.isKeyPressed("KeyP")) {
+            // text += " P ";
+            // keysPressed = true;
+            
+            this.vehicle.ToggleAutoPilot();
         }
         // if (keysPressed) {
         //   console.log(text);

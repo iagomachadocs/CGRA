@@ -5,95 +5,213 @@
 class MyVehicle extends CGFobject {
   constructor(scene) {
     super(scene);
-    this.slices = 3;
-    this.stacks = 0;
+    this.egg = new MyEgg(scene);
+    this.cylinder = new MyCylinder(scene, 20);
+    this.sphere = new MySphere(scene, 16, 8);
+    this.hemisphere = new MyHemisphere(scene);
+    this.triangle = new MyTriangle(scene);
+    this.square = new MySquare(scene);
+
     this.reset();
-    this.initBuffers();
-  }
-  initBuffers() {
-    this.vertices = [];
-    this.indices = [];
-    this.normals = [];
-
-    var ang = 0;
-    var alphaAng = (2 * Math.PI) / this.slices;
-
-    for (var i = 0; i < this.slices; i++) {
-      // All vertices have to be declared for a given face
-      // even if they are shared with others, as the normals
-      // in each face will be different
-
-      var sa = Math.sin(ang);
-      var saa = Math.sin(ang + alphaAng);
-      var ca = Math.cos(ang);
-      var caa = Math.cos(ang + alphaAng);
-
-      this.vertices.push(0, 0, 1);
-      this.vertices.push(ca, sa, 0);
-      this.vertices.push(caa, saa, 0);
-
-      // triangle normal computed by cross product of two edges
-      var normal = [saa - sa, ca * saa - sa * caa, caa - ca];
-
-      // normalization
-      var nsize = Math.sqrt(
-        normal[0] * normal[0] + normal[1] * normal[1] + normal[2] * normal[2]
-      );
-      normal[0] /= nsize;
-      normal[1] /= nsize;
-      normal[2] /= nsize;
-
-      // push normal once for each vertex of this triangle
-      this.normals.push(...normal);
-      this.normals.push(...normal);
-      this.normals.push(...normal);
-
-      this.indices.push(3 * i, 3 * i + 1, 3 * i + 2);
-
-      ang += alphaAng;
-    }
-
-    this.primitiveType = this.scene.gl.TRIANGLES;
-    this.initGLBuffers();
   }
 
   display() {
-    this.scene.pushMatrix();
+    // this.scene.earth.apply();
     this.update();
+
+    //Main body - balloon
+    this.scene.pushMatrix();
     this.scene.translate(this.position[0], this.position[1], this.position[2]);
     this.scene.rotate(this.yyOrientation, 0, 1, 0);
-    super.display();
+    this.egg.display();
+
+    //Compartment
+    this.scene.pushMatrix();
+    this.scene.translate(0, -1, -0.5);
+    this.scene.scale(0.2, 0.2, 0.2);
+
+    this.scene.pushMatrix();
+    this.scene.scale(1, 1, 5);
+    this.scene.rotate(Math.PI / 2, 1, 0, 0);
+    this.cylinder.display();
+    this.scene.popMatrix();
+
+    this.hemisphere.display();
+
+    this.scene.pushMatrix();
+    this.scene.translate(0, 0, 5);
+    this.scene.rotate(Math.PI, 1, 0, 0);
+    this.hemisphere.display();
+    this.scene.popMatrix();
+
+    //Compartment's helixes
+    //Left
+    this.scene.pushMatrix();
+    this.scene.translate(1, -0.2, -0.2);
+    this.scene.scale(0.2, 0.2, 0.2);
+
+    this.scene.pushMatrix();
+    this.scene.scale(1, 1.5, 2.0);
+    this.egg.display();
+    this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+    this.scene.translate(0, 0, -4);
+    this.scene.rotate(Math.PI / 2, 1, 0, 0);
+    this.scene.rotate(Math.PI / 2, 0, 1, 0);
+    this.scene.rotate(this.helixRotation, 0, 1, 0);
+    this.scene.scale(1, 0, 1);
+    this.egg.display();
+
+    this.scene.popMatrix();
+    this.scene.popMatrix();
+
+    //Right
+    this.scene.pushMatrix();
+    this.scene.translate(-1, -0.2, -0.2);
+    this.scene.scale(0.2, 0.2, 0.2);
+
+    this.scene.pushMatrix();
+    this.scene.scale(1, 1.5, 2.0);
+    this.egg.display();
+    this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+    this.scene.translate(0, 0, -4);
+    this.scene.rotate(Math.PI / 2, 1, 0, 0);
+    this.scene.rotate(this.helixRotation, 0, 1, 0);
+    this.scene.scale(1, 0, 1);
+    this.egg.display();
+
+    this.scene.popMatrix();
+    this.scene.popMatrix();
+
+    this.scene.popMatrix();
+
+    //Tails
+    //Right
+    this.scene.pushMatrix();
+    this.scene.translate(-1, 0, -2);
+    this.scene.rotate(-Math.PI / 2, 0, 1, 0);
+    this.scene.rotate(Math.PI / 2, 1, 0, 0);
+    this.square.display();
+    this.scene.translate(1, 0, 0);
+    this.triangle.display();
+    this.scene.popMatrix();
+
+    //Left
+    this.scene.pushMatrix();
+    this.scene.translate(1, 0, -2);
+    this.scene.rotate(Math.PI, 0, 0, 1);
+    this.scene.rotate(-Math.PI / 2, 0, 1, 0);
+    this.scene.rotate(Math.PI / 2, 1, 0, 0);
+    this.square.display();
+    this.scene.translate(1, 0, 0);
+    this.triangle.display();
+    this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+    this.scene.rotate(this.tailRotation, 0, 1, 0);
+    this.tailRotation = 0;
+
+    //Up
+    this.scene.pushMatrix();
+    this.scene.translate(0, 1, -2);
+    this.scene.rotate(-Math.PI / 2, 0, 0, 1);
+    this.scene.rotate(-Math.PI / 2, 0, 1, 0);
+    this.scene.rotate(Math.PI / 2, 1, 0, 0);
+    this.square.display();
+    this.scene.translate(1, 0, 0);
+    this.triangle.display();
+    this.scene.popMatrix();
+
+    //Down
+    this.scene.pushMatrix();
+    this.scene.translate(0, -1, -2);
+    this.scene.rotate(-Math.PI / 2, 0, 0, 1);
+    this.scene.rotate(Math.PI, 0, 0, 1);
+    this.scene.rotate(-Math.PI / 2, 0, 1, 0);
+    this.scene.rotate(Math.PI / 2, 1, 0, 0);
+    this.square.display();
+    this.scene.translate(1, 0, 0);
+    this.triangle.display();
+    this.scene.popMatrix();
+
+    this.scene.popMatrix();
     this.scene.popMatrix();
   }
 
-  updateBuffers(complexity) {
-    this.slices = 3 + Math.round(9 * complexity); //complexity varies 0-1, so slices varies 3-12
-
-    // reinitialize buffers
-    this.initBuffers();
-    this.initNormalVizBuffers();
-  }
-
   update() {
-    this.position[0] += Math.sin(this.yyOrientation) * this.velocity;
-    this.position[2] += Math.cos(this.yyOrientation) * this.velocity;
+    if (!this.autoPilot) {
+      this.position[0] += Math.sin(this.yyOrientation) * this.velocity;
+      this.position[2] += Math.cos(this.yyOrientation) * this.velocity;
+
+      this.helixRotation += 0.5 * this.velocity;
+      this.helixRotation %= 2 * Math.PI;
+    } else {
+      this.xAng = Math.asin((this.center[0] - this.position[0]) / 5);
+
+      this.position[0] += this.xAng * 0.15;
+      this.position[2] += this.xAng * 0.15;
+
+      this.yyOrientation = this.xAng + ;
+
+      this.helixRotation += Math.PI / 8;
+      this.helixRotation %= 2 * Math.PI;
+
+      this.tailRotation = Math.PI / 16;
+    }
   }
 
   turn(val) {
-    this.yyOrientation += val;
-    this.yyOrientation %= 2 * Math.PI;
+    if (!this.autoPilot) {
+      this.yyOrientation += val;
+      this.yyOrientation %= 2 * Math.PI;
+
+      if (val > 0) {
+        this.tailRotation = Math.PI / 16;
+      } else {
+        this.tailRotation = -Math.PI / 16;
+      }
+    }
   }
 
   accelerate(val) {
-    this.velocity += val;
-    if (this.velocity < 0) {
-      this.velocity = 0;
+    if (!this.autoPilot) {
+      this.velocity += val;
+      if (this.velocity < 0) {
+        this.velocity = 0;
+      }
     }
+  }
+
+  ToggleAutoPilot() {
+    // if (!this.autoPilot) {
+    //   this.xAng = this.yyOrientation - Math.PI;
+
+    //   this.center = [
+    //     this.position[0] + 5 * Math.cos(this.xAng + Math.PI),
+    //     this.position[1],
+    //     this.position[2] - 5 * Math.sin(this.xAng + Math.PI),
+    //   ];
+
+    //   this.initPosition = [this.center[0], this.center[1], this.center[2] + 5];
+    //   this.autoPilot = true;
+
+    // } else {
+    //   this.yyOrientation = 0;
+    //   this.velocity = 0;
+    //   this.helixRotation = 0;
+    //   this.autoPilot = false;
+    // }
   }
 
   reset() {
     this.yyOrientation = 0;
     this.velocity = 0;
     this.position = [0, 0, 0];
+    this.helixRotation = 0;
+    this.tailRotation = 0;
+    this.autoPilot = false;
   }
 }
