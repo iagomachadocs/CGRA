@@ -97,7 +97,7 @@ class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
         this.displayAxis = true;
-        this.scaleFactor = 1;
+        this.scaleFactor = 0.1;
         this.selectedObject = 2;
         this.speedFactor = 1;
 
@@ -113,6 +113,10 @@ class MyScene extends CGFscene {
         this.materialIds = { 'Heaven': 0, 'Hell': 1};
         this.selectedMaterial = 0;
         this.updateAppliedMaterial();
+
+        // set the scene update period 
+		// (to invoke the update() method every 50ms or as close as possible to that )
+		this.setUpdatePeriod(50);
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -136,8 +140,8 @@ class MyScene extends CGFscene {
 
     
     checkKeys() {
-        var text = "Keys pressed: ";
-        var keysPressed = false;
+        // var text = "Keys pressed: ";
+        // var keysPressed = false;
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
         //   text += " W ";

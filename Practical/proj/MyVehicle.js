@@ -143,18 +143,28 @@ class MyVehicle extends CGFobject {
 
   update() {
     if (!this.autoPilot) {
+      //normal
       this.position[0] += Math.sin(this.yyOrientation) * this.velocity;
       this.position[2] += Math.cos(this.yyOrientation) * this.velocity;
 
       this.helixRotation += 0.5 * this.velocity;
       this.helixRotation %= 2 * Math.PI;
     } else {
-      this.xAng = Math.asin((this.center[0] - this.position[0]) / 5);
+      //autopilot
+      this.xAng = this.yyOrientation + Math.PI;
+      this.xAng %= 2 * Math.PI;
 
-      this.position[0] += this.xAng * 0.15;
-      this.position[2] += this.xAng * 0.15;
+      this.center = [
+        this.position[0] - Math.sin(this.xAng)/5,
+        this.position[1],
+        this.position[2] - Math.cos(this.xAng)/5
+      ];
 
-      this.yyOrientation = this.xAng;
+      this.position[0] = this.center[0] + (Math.cos(this.xAng)) / 300;
+      this.position[2] = this.center[2] + (Math.sin(this.xAng)) / 300;
+
+      this.yyOrientation += (2 * Math.PI) / 300;
+      this.yyOrientation %= 2 * Math.PI;
 
       this.helixRotation += Math.PI / 8;
       this.helixRotation %= 2 * Math.PI;
@@ -186,24 +196,22 @@ class MyVehicle extends CGFobject {
   }
 
   ToggleAutoPilot() {
-    // if (!this.autoPilot) {
-    //   this.xAng = this.yyOrientation - Math.PI;
+    if (!this.autoPilot) {
+      this.xAng = this.yyOrientation + Math.PI;
+      this.xAng %= 2 * Math.PI;
 
-    //   this.center = [
-    //     this.position[0] + 5 * Math.cos(this.xAng + Math.PI),
-    //     this.position[1],
-    //     this.position[2] - 5 * Math.sin(this.xAng + Math.PI),
-    //   ];
+      this.center = [
+        this.position[0] - Math.sin(this.xAng),
+        this.position[1],
+        this.position[2] - Math.cos(this.xAng)
+      ];
 
-    //   this.initPosition = [this.center[0], this.center[1], this.center[2] + 5];
-    //   this.autoPilot = true;
-
-    // } else {
-    //   this.yyOrientation = 0;
-    //   this.velocity = 0;
-    //   this.helixRotation = 0;
-    //   this.autoPilot = false;
-    // }
+      this.autoPilot = true;
+    } else {
+      this.velocity = 0;
+      this.helixRotation = 0;
+      this.autoPilot = false;
+    }
   }
 
   reset() {
