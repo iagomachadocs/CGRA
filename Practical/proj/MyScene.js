@@ -91,13 +91,14 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.sphere = new MySphere(this, 16, 8);
-        this.cylinder = new MyCylinder(this, 8);
+        this.cylinder = new MyCylinder(this, 20);
         this.cubeMap = new MyUnitCubeMap(this);
         this.vehicle = new MyVehicle(this);
+        this.terrain = new MyTerrain(this);
 
         //Objects connected to MyInterface
         this.displayAxis = true;
-        this.scaleFactor = 0.1;
+        this.scaleFactor = 0.5;
         this.selectedObject = 2;
         this.speedFactor = 1;
 
@@ -230,6 +231,7 @@ class MyScene extends CGFscene {
         this.popMatrix();
     
         this.cubeMap.display();
+        this.terrain.display();
 
         // ---- END Primitive drawing section
     }
