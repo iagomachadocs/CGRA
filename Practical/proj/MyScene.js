@@ -136,11 +136,12 @@ class MyScene extends CGFscene {
     }
     // called periodically (as per setUpdatePeriod() in init())
     update(t) {
-        this.checkKeys();
+        this.checkKeys(t);
+        this.vehicle.update(t);
     }
 
     
-    checkKeys() {
+    checkKeys(t) {
         // var text = "Keys pressed: ";
         // var keysPressed = false;
         // Check for key codes e.g. in https://keycode.info/
@@ -178,7 +179,7 @@ class MyScene extends CGFscene {
             // text += " P ";
             // keysPressed = true;
             
-            this.vehicle.ToggleAutoPilot();
+            this.vehicle.ToggleAutoPilot(t);
         }
         // if (keysPressed) {
         //   console.log(text);
@@ -209,9 +210,7 @@ class MyScene extends CGFscene {
         this.loadIdentity();
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
-
-        this.update();
-        
+     
         // Draw axis
         if (this.displayAxis)
             this.axis.display();
