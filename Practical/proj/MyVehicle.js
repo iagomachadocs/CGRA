@@ -166,7 +166,7 @@ class MyVehicle extends CGFobject {
         this.center[2] + Math.sin(this.yyOrientation) * 5;
       // this.position = this.center;
 
-      console.log(this.center + " " + this.position + " " + t);
+      // console.log(this.center + " " + this.position + " " + t);
       // console.log(this.position);
 
       this.yyOrientation += this.deltaAngle;
