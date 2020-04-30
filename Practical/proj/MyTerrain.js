@@ -7,7 +7,7 @@
 class MyTerrain extends CGFobject {
 	constructor(scene) {
         super(scene);
-        this.plane = new MyPlane(scene, 50);
+        this.plane = new MyPlane(scene, 20);
 		this.initBuffers();
 	}
 	
