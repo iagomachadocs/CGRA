@@ -31,51 +31,87 @@ class MyScene extends CGFscene {
 
         // CubeMap Texture 1
         this.heavenLeft = new CGFappearance(this);
+        this.heavenLeft.setAmbient(1, 1, 1, 1);
+        this.heavenLeft.setDiffuse(0, 0, 0, 1);
+        this.heavenLeft.setSpecular(0, 0, 0, 1);
         this.heavenLeft.loadTexture('images/split_cubemap/left.png');
         this.heavenLeft.setTextureWrap('REPEAT', 'REPEAT');
 
         this.heavenRight = new CGFappearance(this);
+        this.heavenRight.setAmbient(1, 1, 1, 1);
+        this.heavenRight.setDiffuse(0, 0, 0, 1);
+        this.heavenRight.setSpecular(0, 0, 0, 1);
         this.heavenRight.loadTexture('images/split_cubemap/right.png');
         this.heavenRight.setTextureWrap('REPEAT', 'REPEAT');
         
         this.heavenBottom = new CGFappearance(this);
+        this.heavenBottom.setAmbient(1, 1, 1, 1);
+        this.heavenBottom.setDiffuse(0, 0, 0, 1);
+        this.heavenBottom.setSpecular(0, 0, 0, 1);
         this.heavenBottom.loadTexture('images/split_cubemap/bottom.png');
         this.heavenBottom.setTextureWrap('REPEAT', 'REPEAT');
 
         this.heavenTop = new CGFappearance(this);
+        this.heavenTop.setAmbient(1, 1, 1, 1);
+        this.heavenTop.setDiffuse(0, 0, 0, 1);
+        this.heavenTop.setSpecular(0, 0, 0, 1);
         this.heavenTop.loadTexture('images/split_cubemap/top.png');
         this.heavenTop.setTextureWrap('REPEAT', 'REPEAT');
 
         this.heavenFront = new CGFappearance(this);
+        this.heavenFront.setAmbient(1, 1, 1, 1);
+        this.heavenFront.setDiffuse(0, 0, 0, 1);
+        this.heavenFront.setSpecular(0, 0, 0, 1);
         this.heavenFront.loadTexture('images/split_cubemap/front.png');
         this.heavenFront.setTextureWrap('REPEAT', 'REPEAT');
 
         this.heavenBack = new CGFappearance(this);
+        this.heavenBack.setAmbient(1, 1, 1, 1);
+        this.heavenBack.setDiffuse(0, 0, 0, 1);
+        this.heavenBack.setSpecular(0, 0, 0, 1);
         this.heavenBack.loadTexture('images/split_cubemap/back.png');
         this.heavenBack.setTextureWrap('REPEAT', 'REPEAT');
 
         //CubeMap Texture 2
         this.hellLeft = new CGFappearance(this);
+        this.hellLeft.setAmbient(1, 1, 1, 1);
+        this.hellLeft.setDiffuse(0, 0, 0, 1);
+        this.hellLeft.setSpecular(0, 0, 0, 1);
         this.hellLeft.loadTexture('images/split2_cubemap/left.png');
         this.hellLeft.setTextureWrap('REPEAT', 'REPEAT');
 
         this.hellRight = new CGFappearance(this);
+        this.hellRight.setAmbient(1, 1, 1, 1);
+        this.hellRight.setDiffuse(0, 0, 0, 1);
+        this.hellRight.setSpecular(0, 0, 0, 1);
         this.hellRight.loadTexture('images/split2_cubemap/right.png');
         this.hellRight.setTextureWrap('REPEAT', 'REPEAT');
         
         this.hellBottom = new CGFappearance(this);
+        this.hellBottom.setAmbient(1, 1, 1, 1);
+        this.hellBottom.setDiffuse(0, 0, 0, 1);
+        this.hellBottom.setSpecular(0, 0, 0, 1);
         this.hellBottom.loadTexture('images/split2_cubemap/bottom.png');
         this.hellBottom.setTextureWrap('REPEAT', 'REPEAT');
 
         this.hellTop = new CGFappearance(this);
+        this.hellTop.setAmbient(1, 1, 1, 1);
+        this.hellTop.setDiffuse(0, 0, 0, 1);
+        this.hellTop.setSpecular(0, 0, 0, 1);
         this.hellTop.loadTexture('images/split2_cubemap/top.png');
         this.hellTop.setTextureWrap('REPEAT', 'REPEAT');
 
         this.hellFront = new CGFappearance(this);
+        this.hellFront.setAmbient(1, 1, 1, 1);
+        this.hellFront.setDiffuse(0, 0, 0, 1);
+        this.hellFront.setSpecular(0, 0, 0, 1);
         this.hellFront.loadTexture('images/split2_cubemap/front.png');
         this.hellFront.setTextureWrap('REPEAT', 'REPEAT');
 
         this.hellBack = new CGFappearance(this);
+        this.hellBack.setAmbient(1, 1, 1, 1);
+        this.hellBack.setDiffuse(0, 0, 0, 1);
+        this.hellBack.setSpecular(0, 0, 0, 1);
         this.hellBack.loadTexture('images/split2_cubemap/back.png');
         this.hellBack.setTextureWrap('REPEAT', 'REPEAT');
 
@@ -117,7 +153,8 @@ class MyScene extends CGFscene {
 
         // set the scene update period 
 		// (to invoke the update() method every 50ms or as close as possible to that )
-		this.setUpdatePeriod(50);
+        this.setUpdatePeriod(50);
+        this.camera.zoom(-30);
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);

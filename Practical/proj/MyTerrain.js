@@ -13,6 +13,9 @@ class MyTerrain extends CGFobject {
 	
 	initBuffers() {
         this.scene.appearance = new CGFappearance(this.scene);
+        this.scene.appearance.setAmbient(1, 1, 1, 1);
+        this.scene.appearance.setDiffuse(0, 0, 0, 1);
+        this.scene.appearance.setSpecular(0, 0, 0, 1);
         
         this.scene.terrainShader = new CGFshader(this.scene.gl, "shaders/terrain.vert", "shaders/terrain.frag");
         this.scene.heightmapTexture = new CGFtexture(this.scene, "images/heightmap.jpg");
