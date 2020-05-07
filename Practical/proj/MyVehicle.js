@@ -17,7 +17,6 @@ class MyVehicle extends CGFobject {
 
   display() {
     // this.scene.earth.apply();
-    this.update();
 
     //Main body - balloon
     this.scene.pushMatrix();
@@ -112,7 +111,8 @@ class MyVehicle extends CGFobject {
 
     this.scene.pushMatrix();
     this.scene.rotate(this.tailRotation, 0, 1, 0);
-    this.tailRotation = 0;
+
+    if (!this.autoPilot) this.tailRotation = this.tailRotation / 1.05 ;
 
     //Up
     this.scene.pushMatrix();
@@ -141,7 +141,7 @@ class MyVehicle extends CGFobject {
     this.scene.popMatrix();
   }
 
-  update() {
+  update(t) {
     if (!this.autoPilot) {
       //normal
       this.position[0] += Math.sin(this.yyOrientation) * this.velocity;
@@ -151,25 +151,21 @@ class MyVehicle extends CGFobject {
       this.helixRotation %= 2 * Math.PI;
     } else {
       //autopilot
-      this.xAng = this.yyOrientation + Math.PI;
-      this.xAng %= 2 * Math.PI;
+      this.previousTIme = this.currentTime;
+      this.currentTime = t;
+      this.deltaT = (this.currentTime - this.previousTIme) / 1000;
+      this.deltaAngle = (this.deltaT * this.angularSpeed) % (2 * Math.PI);
 
-      this.center = [
-        this.position[0] - Math.sin(this.xAng)/5,
-        this.position[1],
-        this.position[2] - Math.cos(this.xAng)/5
-      ];
+      this.initialAngle = this.yyOrientation + Math.PI;
 
-      this.position[0] = this.center[0] + (Math.cos(this.xAng)) / 300;
-      this.position[2] = this.center[2] + (Math.sin(this.xAng)) / 300;
+      this.position[0] = this.center[0] + Math.cos(this.initialAngle) * 5;
+      this.position[2] = this.center[2] + Math.sin(this.yyOrientation) * 5;
 
-      this.yyOrientation += (2 * Math.PI) / 300;
+      this.yyOrientation += this.deltaAngle;
       this.yyOrientation %= 2 * Math.PI;
 
       this.helixRotation += Math.PI / 8;
       this.helixRotation %= 2 * Math.PI;
-
-      this.tailRotation = Math.PI / 16;
     }
   }
 
@@ -195,16 +191,19 @@ class MyVehicle extends CGFobject {
     }
   }
 
-  ToggleAutoPilot() {
+  ToggleAutoPilot(t) {
     if (!this.autoPilot) {
-      this.xAng = this.yyOrientation + Math.PI;
-      this.xAng %= 2 * Math.PI;
+      this.initialAngle = this.yyOrientation + Math.PI;
+
+      this.currentTime = t;
 
       this.center = [
-        this.position[0] - Math.sin(this.xAng),
+        this.position[0] - Math.cos(this.initialAngle) * 5,
         this.position[1],
-        this.position[2] - Math.cos(this.xAng)
+        this.position[2] - Math.sin(this.yyOrientation) * 5,
       ];
+
+      this.tailRotation = Math.PI / 16;
 
       this.autoPilot = true;
     } else {
@@ -221,5 +220,6 @@ class MyVehicle extends CGFobject {
     this.helixRotation = 0;
     this.tailRotation = 0;
     this.autoPilot = false;
+    this.angularSpeed = (2 * Math.PI) / 5;
   }
 }

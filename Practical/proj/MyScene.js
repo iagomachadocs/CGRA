@@ -136,53 +136,31 @@ class MyScene extends CGFscene {
     }
     // called periodically (as per setUpdatePeriod() in init())
     update(t) {
-        this.checkKeys();
+        this.checkKeys(t);
+        this.vehicle.update(t);
     }
 
     
-    checkKeys() {
-        // var text = "Keys pressed: ";
-        // var keysPressed = false;
+    checkKeys(t) {
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
-        //   text += " W ";
-        //   keysPressed = true;
-
         this.vehicle.accelerate(0.01 * this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyS")) {
-        //   text += " S ";
-        //   keysPressed = true;
-
         this.vehicle.accelerate(-0.01 * this.speedFactor);
         }
-        if (this.gui.isKeyPressed("KeyA")) {
-            // text += " A ";
-            // keysPressed = true;
-    
-            this.vehicle.turn(0.01);
+        if (this.gui.isKeyPressed("KeyA")) {    
+            this.vehicle.turn(0.05);
         }
-        if (this.gui.isKeyPressed("KeyD")) {
-            // text += " D ";
-            // keysPressed = true;
-    
-            this.vehicle.turn(-0.01);
+        if (this.gui.isKeyPressed("KeyD")) {    
+            this.vehicle.turn(-0.05);
         }
-        if (this.gui.isKeyPressed("KeyR")) {
-            // text += " R ";
-            // keysPressed = true;
-            
+        if (this.gui.isKeyPressed("KeyR")) {            
             this.vehicle.reset();
         }
         if (this.gui.isKeyPressed("KeyP")) {
-            // text += " P ";
-            // keysPressed = true;
-            
-            this.vehicle.ToggleAutoPilot();
+            this.vehicle.ToggleAutoPilot(t);
         }
-        // if (keysPressed) {
-        //   console.log(text);
-        // }
     }
 
     updateObject(){
@@ -209,9 +187,7 @@ class MyScene extends CGFscene {
         this.loadIdentity();
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
-
-        this.update();
-        
+     
         // Draw axis
         if (this.displayAxis)
             this.axis.display();
