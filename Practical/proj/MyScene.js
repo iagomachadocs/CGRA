@@ -23,11 +23,9 @@ class MyScene extends CGFscene {
         
         this.enableTextures(true);
 
-        this.quadMaterial = new CGFappearance(this);
-        this.quadMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.quadMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.quadMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.quadMaterial.setShininess(10.0);
+        this.box = new CGFappearance(this);
+        this.box.loadTexture('images/box.jpg');
+        this.box.setTextureWrap('REPEAT', 'REPEAT');
 
         // CubeMap Texture 1
         this.heavenLeft = new CGFappearance(this);
@@ -131,6 +129,7 @@ class MyScene extends CGFscene {
         this.cubeMap = new MyUnitCubeMap(this);
         this.vehicle = new MyVehicle(this);
         this.terrain = new MyTerrain(this);
+        this.supply = new MySupply(this);
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -250,6 +249,7 @@ class MyScene extends CGFscene {
         this.cubeMap.display();
         this.popMatrix();
         this.terrain.display();
+        this.supply.display();
 
         // ---- END Primitive drawing section
     }
