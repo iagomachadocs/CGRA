@@ -129,7 +129,14 @@ class MyScene extends CGFscene {
         this.cubeMap = new MyUnitCubeMap(this);
         this.vehicle = new MyVehicle(this);
         this.terrain = new MyTerrain(this);
-        this.supply = new MySupply(this);
+        
+        this.supply1 = new MySupply(this);
+        this.supply2 = new MySupply(this);
+        this.supply3 = new MySupply(this);
+        this.supply4 = new MySupply(this);
+        this.supply5 = new MySupply(this);
+        this.supplies = [this.supply1, this.supply2, this.supply3, this.supply4, this.supply5];
+        this.nSuppliesDelivered = 0;
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -175,6 +182,9 @@ class MyScene extends CGFscene {
     update(t) {
         this.checkKeys(t);
         this.vehicle.update(t);
+        for(var i = 0; i < this.supplies.length; i++){
+            this.supplies[i].update(t);
+        }
     }
 
     
@@ -194,9 +204,19 @@ class MyScene extends CGFscene {
         }
         if (this.gui.isKeyPressed("KeyR")) {            
             this.vehicle.reset();
+            for(var i = 0; i < this.supplies.length; i++){
+                this.supplies[i].reset();
+            }
+            this.nSuppliesDelivered = 0;
         }
         if (this.gui.isKeyPressed("KeyP")) {
             this.vehicle.ToggleAutoPilot(t);
+        }
+        if (this.gui.isKeyPressed("KeyL")) {
+            if(this.nSuppliesDelivered < 5){
+                this.supplies[this.nSuppliesDelivered].drop(this.vehicle.position);
+                this.nSuppliesDelivered += 1;
+            }
         }
     }
 
@@ -240,7 +260,6 @@ class MyScene extends CGFscene {
         this.multMatrix(sca);
 
         // ---- BEGIN Primitive drawing section
-        this.translate(0, 25, 0);
         this.objects[this.selectedObject].display();
         this.popMatrix();
         
@@ -249,7 +268,9 @@ class MyScene extends CGFscene {
         this.cubeMap.display();
         this.popMatrix();
         this.terrain.display();
-        this.supply.display();
+        for(var i = 0; i < this.supplies.length; i++){
+            this.supplies[i].display();
+        }
 
         // ---- END Primitive drawing section
     }

@@ -31,27 +31,27 @@ class MySupply extends CGFobject {
     this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 
     this.scene.pushMatrix();
-    this.scene.translate(0, 0, 0.5);
+    this.scene.translate(0, 0.5, 0.5);
     this.quad.display();
     this.scene.popMatrix();
 
     //back
     this.scene.pushMatrix();
-    this.scene.translate(0, 0, -0.5);
+    this.scene.translate(0, 0.5, -0.5);
     this.scene.rotate(Math.PI, 0, 1, 0);
     this.quad.display();
     this.scene.popMatrix();
 
     //right
     this.scene.pushMatrix();
-    this.scene.translate(0.5, 0, 0);
+    this.scene.translate(0.5, 0.5, 0);
     this.scene.rotate(Math.PI / 2, 0, 1, 0);
     this.quad.display();
     this.scene.popMatrix();
 
     //left
     this.scene.pushMatrix();
-    this.scene.translate(-0.5, 0, 0);
+    this.scene.translate(-0.5, 0.5, 0);
     this.scene.rotate(-Math.PI / 2, 0, 1, 0);
     this.quad.display();
     this.scene.popMatrix();
@@ -127,13 +127,13 @@ class MySupply extends CGFobject {
   }
 
   drop(dropPosition){
-    this.position = dropPosition;
+    this.position = [dropPosition[0], dropPosition[1], dropPosition[2]];
     this.speed = this.position[1]/3;
     this.state = SupplyStates.FALLING;
   }
 
   land(){
-    if(this.position[1] == 0) {
+    if(this.position[1] <= 0) {
       this.state = SupplyStates.LANDED;
     } 
   }

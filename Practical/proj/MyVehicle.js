@@ -216,7 +216,7 @@ class MyVehicle extends CGFobject {
   reset() {
     this.yyOrientation = 0;
     this.velocity = 0;
-    this.position = [0, 0, 0];
+    this.position = [0, 25, 0];
     this.helixRotation = 0;
     this.tailRotation = 0;
     this.autoPilot = false;
