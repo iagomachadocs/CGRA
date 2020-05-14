@@ -154,6 +154,7 @@ class MyScene extends CGFscene {
         // set the scene update period 
 		// (to invoke the update() method every 50ms or as close as possible to that )
         this.setUpdatePeriod(50);
+        // this.camera.translate(0, 0, 0);
         this.camera.zoom(-30);
     }
     initLights() {
@@ -240,10 +241,14 @@ class MyScene extends CGFscene {
         this.multMatrix(sca);
 
         // ---- BEGIN Primitive drawing section
+        this.translate(0, 25, 0);
         this.objects[this.selectedObject].display();
         this.popMatrix();
-    
+        
+        this.pushMatrix();
+        this.translate(0, 24, 0);
         this.cubeMap.display();
+        this.popMatrix();
         this.terrain.display();
 
         // ---- END Primitive drawing section
