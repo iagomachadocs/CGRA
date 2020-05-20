@@ -15,7 +15,7 @@ class MyUnitCubeMap extends CGFobject {
     this.scene.pushMatrix();
     this.scene.scale(50,50,50);
 
-    this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+    // this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 
     this.scene.pushMatrix();
     this.scene.mapFront.apply()
@@ -49,7 +49,7 @@ class MyUnitCubeMap extends CGFobject {
 
     //top
     this.scene.mapTop.apply();
-    this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+    // this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 
     this.scene.pushMatrix();
     this.scene.translate(0, 0.5, 0);
@@ -60,7 +60,7 @@ class MyUnitCubeMap extends CGFobject {
 
     //bottom
     this.scene.mapBottom.apply();
-    this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+    // this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 
     this.scene.pushMatrix();
     this.scene.translate(0, -0.5, 0);

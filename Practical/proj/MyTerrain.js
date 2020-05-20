@@ -29,7 +29,7 @@ class MyTerrain extends CGFobject {
         this.scene.appearance.apply();
         this.scene.setActiveShader(this.scene.terrainShader);
         this.scene.terrainTexture.bind(1);
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        // this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.scene.pushMatrix();
         // this.scene.translate(0,-24, 0);
         this.scene.rotate(-Math.PI/2, 1, 0, 0);

@@ -140,7 +140,7 @@ class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
         this.displayAxis = true;
-        this.scaleFactor = 0.5;
+        this.scaleFactor = 1;
         this.selectedObject = 2;
         this.speedFactor = 1;
 
@@ -160,7 +160,6 @@ class MyScene extends CGFscene {
         // set the scene update period 
 		// (to invoke the update() method every 50ms or as close as possible to that )
         this.setUpdatePeriod(50);
-        // this.camera.translate(0, 0, 0);
         this.camera.zoom(-30);
     }
     initLights() {
@@ -170,7 +169,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 15, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -203,11 +202,11 @@ class MyScene extends CGFscene {
             this.vehicle.turn(-0.05);
         }
         if (this.gui.isKeyPressed("KeyR")) {            
+            this.nSuppliesDelivered = 0;
             this.vehicle.reset();
             for(var i = 0; i < this.supplies.length; i++){
                 this.supplies[i].reset();
             }
-            this.nSuppliesDelivered = 0;
         }
         if (this.gui.isKeyPressed("KeyP")) {
             this.vehicle.ToggleAutoPilot(t);

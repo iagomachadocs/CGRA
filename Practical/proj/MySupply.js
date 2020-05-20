@@ -7,17 +7,22 @@ class MySupply extends CGFobject {
 
   constructor(scene) {
     super(scene);
+
+    this.SupplyStates = {
+      INACTIVE:0,
+      FALLING:1,
+      LANDED:2
+    };
     
     this.quad = new MyQuad(scene);
-    this.state = SupplyStates.INACTIVE;
     
     this.reset();
   }
 
   display() {
-    if(this.state == SupplyStates.FALLING){
+    if(this.state == this.SupplyStates.FALLING){
       this.displayFalling();
-    } else if(this.state == SupplyStates.LANDED){
+    } else if(this.state == this.SupplyStates.LANDED){
       this.displayLanded();
     }
   }
@@ -28,7 +33,7 @@ class MySupply extends CGFobject {
 
     //front
     this.scene.box.apply();
-    this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+    // this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 
     this.scene.pushMatrix();
     this.scene.translate(0, 0.5, 0.5);
@@ -74,7 +79,9 @@ class MySupply extends CGFobject {
 
   displayLanded() {
     this.scene.pushMatrix();
-    this.scene.translate(this.position[0], this.position[1], this.position[2]);
+    this.scene.translate(this.position[0], 0.01, this.position[2]);
+    this.scene.box.apply();
+    // this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 
     //bottom
     this.scene.pushMatrix();
@@ -114,8 +121,10 @@ class MySupply extends CGFobject {
   }
 
   update(t) {
-    if(this.state == SupplyStates.FALLING) {
-      
+    if(this.state == this.SupplyStates.FALLING) {
+      if(this.previousTime == 0){
+        this.currentTime = t;
+      }
       this.previousTime = this.currentTime;
       this.currentTime = t;
       this.deltaTime = (this.currentTime - this.previousTime) / 1000;
@@ -127,21 +136,22 @@ class MySupply extends CGFobject {
   }
 
   drop(dropPosition){
-    this.position = [dropPosition[0], dropPosition[1], dropPosition[2]];
+    this.position = [dropPosition[0], 24.5, dropPosition[2]];
     this.speed = this.position[1]/3;
-    this.state = SupplyStates.FALLING;
+    this.state = this.SupplyStates.FALLING;
   }
 
   land(){
     if(this.position[1] <= 0) {
-      this.state = SupplyStates.LANDED;
+      this.state = this.SupplyStates.LANDED;
     } 
   }
 
   reset() {
-    this.position = [0,0,0];
+    this.previousTime = 0;
+    this.state = this.SupplyStates.INACTIVE;
+    this.position = [0,24.5,0];
     this.speed = 0;
-    this.state = SupplyStates.INACTIVE;
   }
 
   enableNormalViz() {
@@ -152,9 +162,3 @@ class MySupply extends CGFobject {
     this.quad.disableNormalViz();
   }
 }
-
-const SupplyStates = {
-  INACTIVE:0,
-  FALLING:1,
-  LANDED:2
-};
