@@ -119,8 +119,6 @@ class MyScene extends CGFscene {
         this.earth.setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.earth.setAmbient(1.0, 1.0, 1.0, 1.0);
 
-        // this.earthTexture = new CGFtexture(this, 'images/earth.jpg');
-        // this.earth.setTexture(this.earthTexture);
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -260,6 +258,9 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
         this.objects[this.selectedObject].display();
+        for(var i = 0; i < this.supplies.length; i++){
+            this.supplies[i].display();
+        }
         this.popMatrix();
         
         this.pushMatrix();
@@ -267,9 +268,6 @@ class MyScene extends CGFscene {
         this.cubeMap.display();
         this.popMatrix();
         this.terrain.display();
-        for(var i = 0; i < this.supplies.length; i++){
-            this.supplies[i].display();
-        }
 
         // ---- END Primitive drawing section
     }
