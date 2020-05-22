@@ -2,7 +2,6 @@
  * MyTerrain
  * @constructor
  * @param scene - Reference to MyScene object
- * TODO: Fix max height at shaders
  */
 class MyTerrain extends CGFobject {
 	constructor(scene) {
