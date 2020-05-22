@@ -25,14 +25,11 @@ class MyQuad extends CGFobject {
 			1, 3, 2
 		];
 
+		this.normals = [];
 		//Facing Z positive
-		this.normals = [
-			0, 0, 1,
-			0, 0, 1,
-			0, 0, 1,
-			0, 0, 1
-		];
-		
+		for(var i = 0; i < 4; i++)
+			this.normals.push(0,0,1);
+
 		/*
 		Texture coords (s,t)
 		+----------> s

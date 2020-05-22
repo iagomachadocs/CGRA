@@ -11,13 +11,12 @@ class MyVehicle extends CGFobject {
     this.hemisphere = new MyHemisphere(scene);
     this.triangle = new MyTriangle(scene);
     this.square = new MySquare(scene);
+    this.flag = new MyFlag(scene);
 
     this.reset();
   }
 
   display() {
-    // this.scene.earth.apply();
-
     //Main body - balloon
     this.scene.pushMatrix();
     this.scene.translate(this.position[0], this.position[1], this.position[2]);
@@ -112,7 +111,7 @@ class MyVehicle extends CGFobject {
     this.scene.pushMatrix();
     this.scene.rotate(this.tailRotation, 0, 1, 0);
 
-    if (!this.autoPilot) this.tailRotation = this.tailRotation / 1.05 ;
+    if (!this.autoPilot) this.tailRotation = this.tailRotation / 1.05;
 
     //Up
     this.scene.pushMatrix();
@@ -138,6 +137,13 @@ class MyVehicle extends CGFobject {
     this.scene.popMatrix();
 
     this.scene.popMatrix();
+
+    //Flag
+    this.scene.pushMatrix();
+    this.scene.translate(0, 0, -5);
+    this.flag.display();
+    this.scene.popMatrix();
+
     this.scene.popMatrix();
   }
 
@@ -149,6 +155,8 @@ class MyVehicle extends CGFobject {
 
       this.helixRotation += 0.5 * this.velocity;
       this.helixRotation %= 2 * Math.PI;
+
+      this.flag.update(t, this.velocity + 0.1);
     } else {
       //autopilot
       this.previousTIme = this.currentTime;
@@ -166,6 +174,8 @@ class MyVehicle extends CGFobject {
 
       this.helixRotation += Math.PI / 8;
       this.helixRotation %= 2 * Math.PI;
+
+      this.flag.update(t, 1);
     }
   }
 
@@ -207,8 +217,6 @@ class MyVehicle extends CGFobject {
 
       this.autoPilot = true;
     } else {
-      this.velocity = 0;
-      this.helixRotation = 0;
       this.autoPilot = false;
     }
   }
