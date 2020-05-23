@@ -2,11 +2,14 @@
 precision highp float;
 #endif
 
-varying vec2 vTextureCoord;
-uniform sampler2D uSampler;
-uniform float progressBar;
-
+varying vec3 vVertexPosition;
+uniform float cutoff;
 
 void main() {
-	gl_FragColor = texture2D(uSampler, vTextureCoord);
+	vec4 color = vec4(0.5, 0.5, 0.5, 1.0);
+
+	if((vVertexPosition.x+0.5) < cutoff)
+		color =  vec4(0.5 - vVertexPosition.x, 0.5 + vVertexPosition.x,0.0, 1.0);
+	
+	gl_FragColor = color;
 }

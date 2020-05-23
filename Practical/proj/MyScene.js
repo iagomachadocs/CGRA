@@ -183,6 +183,7 @@ class MyScene extends CGFscene {
         for(var i = 0; i < this.supplies.length; i++){
             this.supplies[i].update(t);
         }
+        this.billboard.update(t);
     }
 
     
