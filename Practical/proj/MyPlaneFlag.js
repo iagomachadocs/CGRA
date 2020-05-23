@@ -27,10 +27,7 @@ class MyPlaneFlag extends CGFobject {
         this.vertices.push(xCoord, yCoord, 0);
         if (j <= this.nrDivs) {
           this.normals.push(0, 0, 1);
-          this.texCoords.push(
-            this.minS + i * this.q,
-            1 - this.minT + j * this.w
-          );
+          this.texCoords.push(this.minS + i * this.q, this.minT + j * this.w);
         } else {
           this.normals.push(0, 0, -1);
           this.texCoords.push(

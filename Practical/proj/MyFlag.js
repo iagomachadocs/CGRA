@@ -5,7 +5,7 @@
 class MyFlag extends CGFobject {
   constructor(scene) {
     super(scene);
-    this.plane = new MyPlaneFlag(scene, 20);
+    this.planeFlag = new MyPlaneFlag(scene, 20);
 
     this.initMaterials();
   }
@@ -50,22 +50,22 @@ class MyFlag extends CGFobject {
     this.scene.translate(0, 0.5, 2.1);
     this.scene.scale(0.05, 0.05, 2.4);
     this.scene.rotate(Math.PI / 2, 0, 1, 0);
-    this.plane.display();
+    this.planeFlag.display();
     this.scene.popMatrix();
     this.scene.pushMatrix();
     this.scene.translate(0, -0.5, 2.1);
     this.scene.scale(0.05, 0.05, 2.4);
     this.scene.rotate(Math.PI / 2, 0, 1, 0);
-    this.plane.display();
+    this.planeFlag.display();
     this.scene.popMatrix();
 
     //Flag
     this.flagAppearance.apply();
-    this.scene.setActiveShader(this.flagShader);
+    // this.scene.setActiveShader(this.flagShader);
     this.scene.pushMatrix();
     this.scene.scale(1, 1, 2);
     this.scene.rotate(Math.PI / 2, 0, 1, 0);
-    this.plane.display();
+    this.planeFlag.display();
     this.scene.popMatrix();
 
     this.scene.setActiveShader(this.scene.defaultShader);

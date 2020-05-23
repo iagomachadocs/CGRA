@@ -127,6 +127,7 @@ class MyScene extends CGFscene {
         this.cubeMap = new MyUnitCubeMap(this);
         this.vehicle = new MyVehicle(this);
         this.terrain = new MyTerrain(this);
+        this.billboard = new MyBillboard(this);
         
         this.supply1 = new MySupply(this);
         this.supply2 = new MySupply(this);
@@ -261,6 +262,9 @@ class MyScene extends CGFscene {
         for(var i = 0; i < this.supplies.length; i++){
             this.supplies[i].display();
         }
+
+        this.billboard.display();
+
         this.popMatrix();
         
         this.pushMatrix();
