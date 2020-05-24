@@ -49,9 +49,9 @@ class MyBillboard extends CGFobject {
     this.billboardAppearance.apply();
     this.scene.pushMatrix();
     this.scene.rotate(Math.PI/4, 0, 1, 0);
-    this.scene.translate(0, 12.5, -15);
+    this.scene.translate(0, 4.8, -10);
     this.scene.scale(2, 1, 1);
-    this.scene.scale(5, 5, 1);
+    this.scene.scale(3, 3, 1);
     this.plane.display();
     this.scene.popMatrix();
 
@@ -59,18 +59,18 @@ class MyBillboard extends CGFobject {
     this.beamAppearance.apply();
     this.scene.pushMatrix();
     this.scene.rotate(Math.PI/4, 0, 1, 0);
-    this.scene.translate(-4.8, 7.5, -15);
-    this.scene.scale(0.04, 1, 1);
-    this.scene.scale(5, 5, 1);
+    this.scene.translate(-2.8, 1.8, -10);
+    this.scene.scale(0.05, 1, 1);
+    this.scene.scale(3, 3, 1);
     this.plane.display();
     this.scene.popMatrix();
 
     //Right beam
     this.scene.pushMatrix();
     this.scene.rotate(Math.PI/4, 0, 1, 0);
-    this.scene.translate(4.8, 7.5, -15);
+    this.scene.translate(2.8, 1.8, -10);
     this.scene.scale(0.04, 1, 1);
-    this.scene.scale(5, 5, 1);
+    this.scene.scale(3, 3, 1);
     this.plane.display();
     this.scene.popMatrix();
 
@@ -80,9 +80,9 @@ class MyBillboard extends CGFobject {
     this.scene.setActiveShader(this.billboardShader);
     this.scene.pushMatrix();
     this.scene.rotate(Math.PI/4, 0, 1, 0);
-    this.scene.translate(0, 12, -14.99);
+    this.scene.translate(0, 4.2, -9.99);
     this.scene.scale(1.5, 0.2, 1);
-    this.scene.scale(5, 5, 1);
+    this.scene.scale(3, 3, 1);
     this.plane.display();
     this.scene.popMatrix();
     this.scene.setActiveShader(this.scene.defaultShader);

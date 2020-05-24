@@ -12,17 +12,32 @@ class MyVehicle extends CGFobject {
     this.triangle = new MyTriangle(scene);
     this.square = new MySquare(scene);
     this.flag = new MyFlag(scene);
+    
+    this.vehicleAppearance = new CGFappearance(this.scene);
+    this.vehicleAppearance.setAmbient(0.3, 0.3, 0.3, 1);
+    this.vehicleAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
+    this.vehicleAppearance.setSpecular(0.0, 0.0, 0.0, 1);
+    this.vehicleAppearance.setShininess(120);
+    this.vehicleAppearance.setTextureWrap("REPEAT", "REPEAT");
+
+    this.vehicleTexture = new CGFtexture(this.scene, "images/vehicle.png");
+    this.redTexture = new CGFtexture(this.scene, "images/red.jpg");
+    this.whiteTexture = new CGFtexture(this.scene, "images/white.jpg");
+
+    this.vehicleAppearance.setTexture(this.vehicleTexture);
 
     this.reset();
   }
 
   display() {
     //Main body - balloon
+    this.vehicleAppearance.apply();
     this.scene.pushMatrix();
     this.scene.translate(this.position[0], this.position[1], this.position[2]);
     this.scene.rotate(this.yyOrientation, 0, 1, 0);
     this.egg.display();
 
+    this.whiteTexture.bind(0);
     //Compartment
     this.scene.pushMatrix();
     this.scene.translate(0, -1, -0.5);
@@ -33,7 +48,8 @@ class MyVehicle extends CGFobject {
     this.scene.rotate(Math.PI / 2, 1, 0, 0);
     this.cylinder.display();
     this.scene.popMatrix();
-
+    
+    // this.redTexture.bind(0);
     this.hemisphere.display();
 
     this.scene.pushMatrix();
@@ -53,6 +69,7 @@ class MyVehicle extends CGFobject {
     this.egg.display();
     this.scene.popMatrix();
 
+    this.redTexture.bind(0);
     this.scene.pushMatrix();
     this.scene.translate(0, 0, -4);
     this.scene.rotate(Math.PI / 2, 1, 0, 0);
@@ -64,6 +81,7 @@ class MyVehicle extends CGFobject {
     this.scene.popMatrix();
     this.scene.popMatrix();
 
+    this.whiteTexture.bind(0);
     //Right
     this.scene.pushMatrix();
     this.scene.translate(-1, -0.2, -0.2);
@@ -74,6 +92,7 @@ class MyVehicle extends CGFobject {
     this.egg.display();
     this.scene.popMatrix();
 
+    this.redTexture.bind(0);
     this.scene.pushMatrix();
     this.scene.translate(0, 0, -4);
     this.scene.rotate(Math.PI / 2, 1, 0, 0);
