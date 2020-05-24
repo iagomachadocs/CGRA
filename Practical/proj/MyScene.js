@@ -27,6 +27,13 @@ class MyScene extends CGFscene {
         this.box.loadTexture('images/box.jpg');
         this.box.setTextureWrap('REPEAT', 'REPEAT');
 
+        // Default Appearance
+        this.defaultAppearance = new CGFappearance(this);
+        this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0);
+        this.defaultAppearance.setDiffuse(0.2, 0.4, 0.8, 1.0);
+        this.defaultAppearance.setSpecular(0.2, 0.4, 0.8, 1.0);
+        this.defaultAppearance.setShininess(10.0);
+
         // CubeMap Texture 1
         this.heavenLeft = new CGFappearance(this);
         this.heavenLeft.setAmbient(1, 1, 1, 1);
@@ -171,10 +178,7 @@ class MyScene extends CGFscene {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 15, 0));
     }
     setDefaultAppearance() {
-        this.setAmbient(0.2, 0.4, 0.8, 1.0);
-        this.setDiffuse(0.2, 0.4, 0.8, 1.0);
-        this.setSpecular(0.2, 0.4, 0.8, 1.0);
-        this.setShininess(10.0);
+        this.defaultAppearance.apply()
     }
     // called periodically (as per setUpdatePeriod() in init())
     update(t) {
@@ -259,13 +263,13 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
         this.objects[this.selectedObject].display();
+        this.popMatrix();
+
         for(var i = 0; i < this.supplies.length; i++){
             this.supplies[i].display();
         }
 
         this.billboard.display();
-
-        this.popMatrix();
         
         this.pushMatrix();
         this.translate(0, 24, 0);
