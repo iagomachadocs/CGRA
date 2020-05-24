@@ -201,8 +201,13 @@ class MyScene extends CGFscene {
         this.multMatrix(sca);
 
         // ---- BEGIN Primitive drawing section
+        if(this.selectedObject != 2){
+            this.earth.apply();
+        }
         this.objects[this.selectedObject].display();
         this.popMatrix();
+
+        this.setDefaultAppearance();
 
         for(var i = 0; i < this.supplies.length; i++){
             this.supplies[i].display();

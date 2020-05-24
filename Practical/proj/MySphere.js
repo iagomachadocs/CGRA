@@ -78,10 +78,6 @@ class MySphere extends CGFobject {
   }
 
   display() {
-    this.scene.earth.apply();
-    this.scene.pushMatrix();
-    this.scene.translate(0, 25, 0);
     super.display();
-    this.scene.popMatrix();
   }
 }
