@@ -11,6 +11,7 @@ class MyPlaneFlag extends CGFobject {
     this.maxT = maxT || 1;
     this.q = (this.maxS - this.minS) / this.nrDivs;
     this.w = (this.maxT - this.minT) / this.nrDivs;
+    this.verticePerFace = Math.pow(this.nrDivs + 1, 2) - 1;
     this.initBuffers();
   }
   initBuffers() {
@@ -18,10 +19,9 @@ class MyPlaneFlag extends CGFobject {
     this.vertices = [];
     this.normals = [];
     this.texCoords = [];
-    this.verticePerFace = Math.pow(this.nrDivs + 1, 2) - 1;
 
     var yCoord = 0.5;
-    for (var j = 0; j <= this.nrDivs * 2; j++) {
+    for (var j = 0; j <= (this.nrDivs + 1) * 2; j++) {
       var xCoord = -0.5;
       for (var i = 0; i <= this.nrDivs; i++) {
         this.vertices.push(xCoord, yCoord, 0);
@@ -31,8 +31,8 @@ class MyPlaneFlag extends CGFobject {
         } else {
           this.normals.push(0, 0, -1);
           this.texCoords.push(
-            1 - this.minS + i * this.q,
-            this.minT + j * this.w
+            1 - (this.minS + i * this.q),
+            this.minT + (j - this.nrDivs - 1) * this.w
           );
         }
         xCoord += this.patchLength;

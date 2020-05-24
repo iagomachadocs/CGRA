@@ -30,7 +30,7 @@ class MyFlag extends CGFobject {
       "shaders/flag.frag"
     );
 
-    this.flagTexture = new CGFtexture(this.scene, "images/ft4.jpeg");
+    this.flagTexture = new CGFtexture(this.scene, "images/flag.jpg");
 
     this.angularSpeed = 1.0;
     this.phase = 0;
@@ -61,7 +61,7 @@ class MyFlag extends CGFobject {
 
     //Flag
     this.flagAppearance.apply();
-    // this.scene.setActiveShader(this.flagShader);
+    this.scene.setActiveShader(this.flagShader);
     this.scene.pushMatrix();
     this.scene.scale(1, 1, 2);
     this.scene.rotate(Math.PI / 2, 0, 1, 0);
