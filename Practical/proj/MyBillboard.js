@@ -6,7 +6,7 @@
 class MyBillboard extends CGFobject {
   constructor(scene) {
     super(scene);
-    this.plane = new MyPlane(scene);
+    this.plane = new MyPlaneFlag(scene);
     this.initMaterials();
   }
 

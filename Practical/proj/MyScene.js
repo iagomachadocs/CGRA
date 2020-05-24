@@ -270,10 +270,10 @@ class MyScene extends CGFscene {
             this.supplies[i].display();
         }
 
-        this.billboard.display();
+        // this.billboard.display();
         
         this.pushMatrix();
-        this.translate(0, 24, 0);
+        this.translate(0, 10, 0);
         this.cubeMap.display();
         this.popMatrix();
         this.terrain.display();
